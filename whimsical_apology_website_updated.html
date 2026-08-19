@@ -1,0 +1,196 @@
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; }
+.app-container { min-height: 100vh; background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 50%, #f5d0e8 100%); position: relative; overflow: hidden; }
+.heart-bg { position: absolute; font-size: 2rem; opacity: 0.15; pointer-events: none; animation: float-hearts 6s ease-in-out infinite; }
+@keyframes float-hearts { 0% { transform: translateY(0px) rotate(0deg); opacity: 0.1; } 50% { opacity: 0.2; } 100% { transform: translateY(-100px) rotate(10deg); opacity: 0.05; } }
+.teddy-corner { position: fixed; bottom: 20px; right: 20px; font-size: 3rem; cursor: pointer; z-index: 10; animation: teddy-bounce 2s ease-in-out infinite; }
+@keyframes teddy-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.page { display: none; opacity: 0; transition: opacity 0.6s ease; }
+.page.active { display: block; opacity: 1; }
+.content-wrapper { max-width: 600px; margin: 0 auto; padding: 40px 20px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+h1 { font-size: 2.2rem; margin-bottom: 10px; color: #be185d; font-weight: 600; }
+.subtitle { font-size: 1rem; color: #ec4899; margin-bottom: 20px; }
+.message-box { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); border-radius: 20px; padding: 30px; margin: 20px 0; border: 2px solid #f472b6; box-shadow: 0 8px 32px rgba(236, 72, 153, 0.15); }
+.emoji-large { font-size: 3rem; margin: 20px 0; display: block; }
+.button-group { display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; justify-content: center; }
+button { padding: 14px 28px; border: none; border-radius: 12px; font-size: 1rem; cursor: pointer; font-weight: 600; transition: all 0.3s ease; font-family: inherit; }
+.btn-primary { background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); color: white; box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6); }
+.btn-primary:active { transform: translateY(0); }
+.btn-secondary { background: white; color: #be185d; border: 2px solid #f472b6; }
+.btn-secondary:hover { background: #fce7f3; transform: translateY(-2px); }
+button:active { transform: scale(0.95); }
+.package-item { background: white; padding: 15px; margin: 10px 0; border-radius: 12px; border-left: 4px solid #ec4899; }
+.package-emoji { font-size: 2rem; margin-right: 10px; }
+.letter { text-align: left; font-size: 1.05rem; line-height: 1.8; color: #1f2937; }
+.letter p { margin-bottom: 15px; }
+.success-message { font-size: 1.2rem; color: #be185d; font-weight: 600; margin-top: 20px; }
+@media (max-width: 600px) { h1 { font-size: 1.8rem; } .content-wrapper { padding: 20px 15px; } .message-box { padding: 20px; } button { padding: 12px 20px; font-size: 0.95rem; } .teddy-corner { font-size: 2.5rem; bottom: 15px; right: 15px; } }
+</style>
+
+<div class="app-container" id="appContainer">
+  <div class="teddy-corner">🧸</div>
+  
+  <div class="page active" id="page1">
+    <div class="content-wrapper">
+      <h1>A Small Apology From Your Stubborn Girl 💕</h1>
+      <div class="message-box">
+        <p style="font-size: 1.1rem; color: #1f2937;">Hey you... 🥺</p>
+        <p style="margin-top: 15px;">I made a tiny website because apparently one "I'm sorry" wasn't enough to explain how sorry I am.</p>
+      </div>
+      <div style="font-size: 4rem; animation: envelope-bounce 1.5s ease-in-out infinite;">✉️</div>
+      <button class="btn-primary" onclick="playSound(); nextPage()">Open my apology →</button>
+    </div>
+  </div>
+  
+  <div class="page" id="page2">
+    <div class="content-wrapper">
+      <h1>Okay... I messed up 😭</h1>
+      <div class="message-box">
+        <p>I know I was stubborn. I know I made things unnecessarily difficult. And I know that disappearing and ghosting you last night wasn't fair to you.</p>
+        <p style="margin-top: 15px;">You didn't deserve to be left wondering what was going on in my head.</p>
+        <p style="margin-top: 15px;">I'm sorry for all the stress and pain I caused you with my behavior. You didn't deserve that at all.</p>
+      </div>
+      <button class="btn-primary" onclick="playSound(); triggerSadAnimation(); setTimeout(() => nextPage(), 1000)">I admit it 😔</button>
+    </div>
+  </div>
+  
+  <div class="page" id="page3">
+    <div class="content-wrapper">
+      <h1>Things I absolutely adore about you ❤️</h1>
+      <div class="message-box">
+        <p><strong>Your patience.</strong> Even when I'm being impossible, you're there.</p>
+        <p><strong>The way you care about me.</strong> You make me feel like I matter.</p>
+        <p><strong>The way you tolerate my stubborn little brain.</strong> 😭</p>
+      </div>
+      <button class="btn-primary" onclick="playSound(); nextPage()">You mean everything to me →</button>
+    </div>
+  </div>
+  
+  <div class="page" id="page4">
+    <div class="content-wrapper">
+      <h1>Apology package 📦</h1>
+      <div class="message-box">
+        <div class="package-item">
+          <span class="package-emoji">🫂</span> <strong>1 giant virtual hug</strong>
+        </div>
+        <div class="package-item">
+          <span class="package-emoji">💋</span> <strong>1000 emergency kisses</strong>
+        </div>
+        <div class="package-item">
+          <span class="package-emoji">🥺</span> <strong>Unlimited sorrys</strong>
+        </div>
+        <div class="package-item">
+          <span class="package-emoji">🍫</span> <strong>One imaginary chocolate delivery</strong>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="playSound(); nextPage()">Accept apology?</button>
+    </div>
+  </div>
+  
+  <div class="page" id="page5">
+    <div class="content-wrapper">
+      <h1>The actual heartfelt apology 💌</h1>
+      <div class="message-box" style="text-align: left;">
+        <div class="letter">
+          <p><strong>My love,</strong></p>
+          <p>I'm genuinely sorry for how I behaved. I know my stubbornness can sometimes make things harder than they need to be, and I'm sorry for putting you through that.</p>
+          <p>I'm especially sorry for ghosting you last night. You didn't deserve to be left without an explanation, especially by someone who loves you and should make you feel safe enough to talk to.</p>
+          <p>I can't promise that I'll suddenly become a perfectly non-stubborn human being 😂, but I can promise that I'll try harder to communicate, listen, and not shut you out when I'm upset.</p>
+          <p><strong>I love you. And I'm sorry. Really, really sorry. ❤️</strong></p>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="playSound(); nextPage()">Let me ask you something →</button>
+    </div>
+  </div>
+  
+  <div class="page" id="page6">
+    <div class="content-wrapper">
+      <h1>Can you forgive your stubborn girlfriend? 🥺👉👈</h1>
+      <div class="message-box">
+        <p>kucchu pucchu, I promise to be better. 💕</p>
+      </div>
+      <div class="button-group">
+        <button class="btn-primary" onclick="playSound(); showSuccess()">Forgive me ❤️</button>
+        <button class="btn-primary" onclick="playSound(); showSuccess()">Yessssss 🥺</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="page" id="page-success">
+    <div class="content-wrapper">
+      <div style="font-size: 5rem; margin-bottom: 20px;">✨💕✨</div>
+      <h1>Thank you for hearing me out</h1>
+      <div class="message-box">
+        <p>No matter what, I'm going to respect how you feel. ❤️</p>
+        <p style="margin-top: 20px; font-size: 1.1rem;"><strong>You're the best thing that ever happened to me, kucchu pucchu.</strong></p>
+      </div>
+      <button class="btn-secondary" onclick="playSound(); location.reload()">Start over</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentPage = 1;
+const totalPages = 6;
+
+function createHearts() {
+  const container = document.getElementById('appContainer');
+  for (let i = 0; i < 8; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart-bg';
+    heart.textContent = '💕';
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.top = Math.random() * 100 + '%';
+    heart.style.animationDelay = Math.random() * 2 + 's';
+    container.appendChild(heart);
+  }
+}
+
+function playSound() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.value = 800;
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.1);
+  } catch (e) {}
+}
+
+function nextPage() {
+  if (currentPage < totalPages) {
+    document.getElementById('page' + currentPage).classList.remove('active');
+    currentPage++;
+    document.getElementById('page' + currentPage).classList.add('active');
+  }
+}
+
+function triggerSadAnimation() {
+  const page = document.getElementById('page2');
+  page.style.animation = 'none';
+  setTimeout(() => {
+    page.style.animation = 'sadAnimation 0.6s ease';
+  }, 10);
+}
+
+function showSuccess() {
+  document.getElementById('page6').classList.remove('active');
+  document.getElementById('page-success').classList.add('active');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  createHearts();
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes envelope-bounce { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(5deg); } }
+    @keyframes sadAnimation { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+  `;
+  document.head.appendChild(style);
+});
+</script>
